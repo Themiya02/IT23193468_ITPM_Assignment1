@@ -40,33 +40,33 @@ const testCases = [
 test.describe('Swift Translator Automation', () => {
 
     test.beforeEach(async ({ page }) => {
-        // හැම ටෙස්ට් එකකටම කලින් සයිට් එකට යනවා
+        
         await page.goto('https://www.swifttranslator.com/', { waitUntil: 'networkidle' });
     });
 
     for (const tc of testCases) {
         test(`Test Case ${tc.id}: ${tc.input}`, async ({ page }) => {
-            // පළවෙනි textarea එක අල්ලගන්න (Input)
+            
             const inputField = page.locator('textarea').first();
-            // දෙවෙනි textarea එක අල්ලගන්න (Output)
+            
             const outputField = page.locator('textarea').last();
 
-            // 1. Input box එකට type කරන්න
+            
             await inputField.click();
             await inputField.fill(tc.input);
 
-            // 2. Output එක generate වෙන්න තත්පර 2ක් ඉන්න (Internet speed එක අනුව මේක ඕනෙමයි)
+            
             await page.waitForTimeout(2000); 
 
-            // 3. Output එකේ අගය ගන්න
+            
             const actualOutput = await outputField.inputValue();
 
             console.log(`ID: ${tc.id} | Actual: ${actualOutput}`);
 
-            // 4. Positive ටෙස්ට් වලදී විතරක් අකුරු සමානද බලන්න
+            
             if (tc.id.startsWith('Pos_Fun')) {
-                // toContain පාවිච්චි කරන්න එතකොට පොඩි අකුරක වෙනසක් තිබ්බත් pass වෙනවා
-                expect(actualOutput.trim()).not.toBe(''); // Output එක හිස් වෙන්න බෑ
+                
+                expect(actualOutput.trim()).not.toBe(''); 
             }
         });
     }
